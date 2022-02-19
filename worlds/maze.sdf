@@ -107,11 +107,47 @@
 <acceleration>0 0 0 0 -0 0</acceleration>
 <wrench>0 0 0 0 -0 0</wrench>
 </link>
+</model><model name="table_1">
+<pose frame=>1.0 4.0 0 0 0 0</pose>
+<scale>0.4 0.4 0.4</scale>
+<link name="link">
+<pose frame=>1.0 4.0 0 0 0 0</pose>
+<velocity>0 0 0 0 -0 0</velocity>
+<acceleration>0 0 0 0 -0 0</acceleration>
+<wrench>0 0 0 0 -0 0</wrench>
+</link>
+</model><model name="table_2">
+<pose frame=>3.0 3.0 0 0 0 0</pose>
+<scale>0.4 0.4 0.4</scale>
+<link name="link">
+<pose frame=>3.0 3.0 0 0 0 0</pose>
+<velocity>0 0 0 0 -0 0</velocity>
+<acceleration>0 0 0 0 -0 0</acceleration>
+<wrench>0 0 0 0 -0 0</wrench>
+</link>
+</model><model name="table_3">
+<pose frame=>3.0 1.0 0 0 0 0</pose>
+<scale>0.4 0.4 0.4</scale>
+<link name="link">
+<pose frame=>3.0 1.0 0 0 0 0</pose>
+<velocity>0 0 0 0 -0 0</velocity>
+<acceleration>0 0 0 0 -0 0</acceleration>
+<wrench>0 0 0 0 -0 0</wrench>
+</link>
+</model><model name="table_4">
+<pose frame=>2.0 1.0 0 0 0 0</pose>
+<scale>0.4 0.4 0.4</scale>
+<link name="link">
+<pose frame=>2.0 1.0 0 0 0 0</pose>
+<velocity>0 0 0 0 -0 0</velocity>
+<acceleration>0 0 0 0 -0 0</acceleration>
+<wrench>0 0 0 0 -0 0</wrench>
+</link>
 </model><model name="Croissant_1">
-<pose frame=>1.0 7.5 0.46 0 0 0</pose>
+<pose frame=>0.5 7.5 0.46 0 0 0</pose>
 <scale>0.3 0.3 0.3</scale>
 <link name="link">
-<pose frame=>1.0 7.5 0.46 0 0 0</pose>
+<pose frame=>0.5 7.5 0.46 0 0 0</pose>
 <velocity>0 0 0 0 -0 0</velocity>
 <acceleration>0 0 0 0 -0 0</acceleration>
 <wrench>0 0 0 0 -0 0</wrench>
@@ -144,6 +180,70 @@
 </collision>
 <visual name="visual"><geometry>
 <mesh><uri>file:///home/cse571/.gazebo/models/world/meshes/world_final.dae</uri></mesh><scale> 0.4 0.4 0.4 </scale>
+</geometry>
+</visual>
+</link>
+</model>
+<model name="table_1">
+<pose>0 0 0 0 0 0</pose>
+<static>1</static>
+<link name="body">
+<inertial><mass>0.005</mass><inertia></inertia><pose frame=> 0 0 0 0 -0 0</pose>
+</inertial><self_collide>0</self_collide><kinematic>0</kinematic><gravity>1</gravity><collision name="body_collide">
+<geometry>
+<mesh><uri>file:///home/cse571/.gazebo/models/cafe_table/meshes/cafe_table.dae</uri><scale> 0.4 0.4 0.4 </scale></mesh>
+</geometry>
+</collision>
+<visual name="visual"><geometry>
+<mesh><uri>file:///home/cse571/.gazebo/models/cafe_table/meshes/cafe_table.dae</uri></mesh><scale> 0.4 0.4 0.4 </scale>
+</geometry>
+</visual>
+</link>
+</model>
+<model name="table_2">
+<pose>0 0 0 0 0 0</pose>
+<static>1</static>
+<link name="body">
+<inertial><mass>0.005</mass><inertia></inertia><pose frame=> 0 0 0 0 -0 0</pose>
+</inertial><self_collide>0</self_collide><kinematic>0</kinematic><gravity>1</gravity><collision name="body_collide">
+<geometry>
+<mesh><uri>file:///home/cse571/.gazebo/models/cafe_table/meshes/cafe_table.dae</uri><scale> 0.4 0.4 0.4 </scale></mesh>
+</geometry>
+</collision>
+<visual name="visual"><geometry>
+<mesh><uri>file:///home/cse571/.gazebo/models/cafe_table/meshes/cafe_table.dae</uri></mesh><scale> 0.4 0.4 0.4 </scale>
+</geometry>
+</visual>
+</link>
+</model>
+<model name="table_3">
+<pose>0 0 0 0 0 0</pose>
+<static>1</static>
+<link name="body">
+<inertial><mass>0.005</mass><inertia></inertia><pose frame=> 0 0 0 0 -0 0</pose>
+</inertial><self_collide>0</self_collide><kinematic>0</kinematic><gravity>1</gravity><collision name="body_collide">
+<geometry>
+<mesh><uri>file:///home/cse571/.gazebo/models/cafe_table/meshes/cafe_table.dae</uri><scale> 0.4 0.4 0.4 </scale></mesh>
+</geometry>
+</collision>
+<visual name="visual"><geometry>
+<mesh><uri>file:///home/cse571/.gazebo/models/cafe_table/meshes/cafe_table.dae</uri></mesh><scale> 0.4 0.4 0.4 </scale>
+</geometry>
+</visual>
+</link>
+</model>
+<model name="table_4">
+<pose>0 0 0 0 0 0</pose>
+<static>1</static>
+<link name="body">
+<inertial><mass>0.005</mass><inertia></inertia><pose frame=> 0 0 0 0 -0 0</pose>
+</inertial><self_collide>0</self_collide><kinematic>0</kinematic><gravity>1</gravity><collision name="body_collide">
+<geometry>
+<mesh><uri>file:///home/cse571/.gazebo/models/cafe_table/meshes/cafe_table.dae</uri><scale> 0.4 0.4 0.4 </scale></mesh>
+</geometry>
+</collision>
+<visual name="visual"><geometry>
+<mesh><uri>file:///home/cse571/.gazebo/models/cafe_table/meshes/cafe_table.dae</uri></mesh><scale> 0.4 0.4 0.4 </scale>
 </geometry>
 </visual>
 </link>

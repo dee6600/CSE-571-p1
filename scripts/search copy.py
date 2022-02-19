@@ -10,10 +10,7 @@ __maintainers__ = ["Pulkit Verma", "Karthik Nelapati"]
 __contact__ = "aair.lab@asu.edu"
 __docformat__ = 'reStructuredText'
 
-from hashlib import new
-import math
 import os
-#import queue
 import time
 import rospy
 import argparse
@@ -72,62 +69,39 @@ def compute_g(algorithm, node, goal_state):
     """
 
     if algorithm == "bfs":
-        
-        return node.get_depth()
+        '''
+        YOUR CODE HERE
+        '''
+        raise NotImplementedError
 
     if algorithm == "astar":
-        
-        if node.get_parent():
-            return node.get_total_action_cost()
-        else:
-            return 0
-        
+        '''
+        YOUR CODE HERE
+        '''
+        raise NotImplementedError
 
     elif algorithm == "gbfs":
-        
-        return 0
-
+        '''
+        YOUR CODE HERE
+        '''
+        raise NotImplementedError
 
     elif algorithm == "ucs":
-        
-        if node.get_parent():
-            return node.get_total_action_cost()
-        else:
-            return 0    
+        '''
+        YOUR CODE HERE
+        '''
+        raise NotImplementedError
 
     elif algorithm == "custom-astar":
-        
-        if node.get_parent():
-            return node.get_total_action_cost()
-        else:
-            return 0
+        '''
+        YOUR CODE HERE
+        '''
+        raise NotImplementedErrors
 
     # Should never reach here.
     assert False
     return float("inf")
 
-def manhattan_distance(x1, y1, x2, y2):
-    """
-        Computes the Manhattan distance between two points.
-
-        Parameters
-        ===========
-            x1: int
-                The x-coordinate of the first point.
-            y1: int
-                The y-coordinate of the first point.
-            x2: int
-                The x-coordinate of the second point.
-            y2: int
-                The y-coordinate of the second point.
-
-        Returns
-        ========
-            int
-                The Manhattan distance between the two points.
-    """
-
-    return abs(x1 - x2) + abs(y1 - y2)
 
 def f_bfs(node, goal_state):
     """
@@ -145,9 +119,8 @@ def f_bfs(node, goal_state):
             int
                 The f-value for the node.
     """
-    
 
-    return compute_g("bfs", node, goal_state)
+    return node.get_depth()
 
 
 def f_ucs(node, goal_state):
@@ -171,7 +144,7 @@ def f_ucs(node, goal_state):
     YOUR CODE HERE
     '''
 
-    return compute_g("ucs", node, goal_state)
+    raise NotImplementedError
 
 
 def f_astar(node, goal_state):
@@ -191,14 +164,11 @@ def f_astar(node, goal_state):
                 The f-value for the node.
     """
 
-    x1, y1 = node.get_state().x, node.get_state().y
-    x2, y2 = goal_state.x, goal_state.y
-    h = manhattan_distance(x1, y1, x2, y2)
-    g = compute_g("astar", node, goal_state)
+    '''
+    YOUR CODE HERE
+    '''
 
-    f = g + h
-
-    return f
+    raise NotImplementedError
 
 
 
@@ -219,11 +189,11 @@ def f_gbfs(node, goal_state):
                 The f-value for the node.
     """
 
-    x1, y1 = node.get_state().x, node.get_state().y
-    x2, y2 = goal_state.x, goal_state.y
-   
-    h = manhattan_distance(x1, y1, x2, y2)
-    return h
+    '''
+    YOUR CODE HERE
+    '''
+
+    raise NotImplementedError
 
 
 
@@ -244,15 +214,11 @@ def f_custom_astar(node, goal_state):
                 The f-value for the node.
     """
 
-    x1, y1 = node.get_state().x, node.get_state().y
-    x2, y2 = goal_state.x, goal_state.y
+    '''
+    YOUR CODE HERE
+    '''
 
-    # Compute the heuristic value with euclidian distance.
-    h = math.sqrt(math.pow(x1 - x2, 2) + math.pow(y1 - y2, 2))
-    g = compute_g("custom-astar", node, goal_state)
-    f = g + h
-
-    return f
+    raise NotImplementedError
 
 
 
@@ -317,60 +283,10 @@ def graph_search(algorithm, time_limit):
     5. f_custom_astar (If attempting bonus question)
     '''
 
-    # # bfs
-    # if algorithm == "bfs":
-    #     while not priority_queue.is_empty():
-    #         node = priority_queue.pop()
-    #         total_nodes_expanded += 1
-    #         if helper.is_goal_state(node.get_state()):
-    #             break
-    #         for action in helper.get_actions(node.get_state()):
-    #             child_state = helper.get_child_state(node.get_state(), action)
-    #             child_node = Node(child_state, node, node.get_action_cost() + 1, action, 0)
-    #             priority_queue.push(child_node.get_total_action_cost(), child_node)
-    #             action_list.append(action)
-    # # ucs
-    # if algorithm == "ucs":
-    #     while not priority_queue.is_empty():
-    #         node = priority_queue.pop()
-    #         total_nodes_expanded += 1
-    #         if helper.is_goal_state(node.get_state()):
-    #             break
-    #         for action in helper.get_actions(node.get_state()):
-    #             child_state = helper.get_child_state(node.get_state(), action)
-    #             child_node = Node(child_state, node, node.get_action_cost() + 1, action, 0)
-    #             priority_queue.push(child_node.get_total_action_cost(), child_node)
-    #             action_list.append(action)
+    if time.time() >= time_limit:
+        raise SearchTimeOutError("Search timed out after %u secs." % (time_limit))
 
-
-    # general graph search algorithm
-
-    visited = []
-    while not priority_queue.is_empty():
-        node = priority_queue.pop()
-        
-        if (node.get_state() in visited) or is_invalid(node.get_state()):
-            continue
-        visited.append(node.get_state())
-        
-        if helper.is_goal_state(node.get_state()):
-            while node.get_parent() is not None:
-                action_list.append(node.get_action())
-                node = node.get_parent()
-            action_list.reverse()
-            return action_list, total_nodes_expanded
-        successors = helper.get_successor(node.get_state())
-        for action in successors:
-           new_state, action_cost = successors[action]
-           new_node = Node(new_state, node, node.get_depth() + 1, action, action_cost)
-           new_f_score = f_value[algorithm](new_node, goal_state)
-           priority_queue.push(new_f_score, new_node)
-        total_nodes_expanded += 1
-
-        if time.time() >= time_limit:
-            raise SearchTimeOutError("Search timed out after %u secs." % (time_limit))
-
-  
+    return action_list, total_nodes_expanded
 
 
 def submit(file_handle, env):
