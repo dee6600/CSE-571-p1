@@ -76,11 +76,7 @@ astar_list_t3.sort(key=lambda val: SORT_ORDER[val[0]])
 custom_astar_list_t3.sort(key=lambda val: SORT_ORDER[val[0]])
 
 
-
-
-
-
-#plot two line plots
+#plot two line plots for data
 
 #plot t2
 # time vs dimesntion for all algorithms
