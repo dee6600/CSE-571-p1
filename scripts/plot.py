@@ -75,10 +75,10 @@ gbfs_list_t3.sort(key=lambda val: SORT_ORDER[val[0]])
 astar_list_t3.sort(key=lambda val: SORT_ORDER[val[0]])
 custom_astar_list_t3.sort(key=lambda val: SORT_ORDER[val[0]])
 
-
-#plot two line plots for data
+#plot two line plots
 
 #plot t2
+
 # time vs dimesntion for all algorithms
 plot1 = plt.figure(1)
 
@@ -106,7 +106,7 @@ plt.xlabel('Dimension')
 plt.ylabel('Nodes Expanded')
 plt.title('Nodes Expanded vs Dimension')
 
-
+#show plots
 plt.show()
 
 
