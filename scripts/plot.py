@@ -1,32 +1,28 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-
+import os
 
 # Load data
 data = pd.read_csv('hw1_results.csv')
-
-# get sum of data['time'] column from data frame for same data['algorithm']
-
-#data2 = data.groupby(['Dimension',' Algorithm'])[' Time'].mean()
 
 # only keep the data[' Time'] column, data['Dimension'] column, data['Algorithm'] column
 
 data2 = data[['Dimension', ' Algorithm', ' Time']]
 
-#calculate mean of data[' Time'] column for same data['algorithm'] and data['dimension']
+# #calculate mean of data[' Time'] column for same data['algorithm'] and data['dimension']
 
 data3 = data2.groupby(['Dimension', ' Algorithm'])[' Time'].mean()
 
-data3 = data3.to_frame().reset_index()
 
-#print(data3)
+# put all astar data into a list
 
-#create seperate data frame for each algorithm
+astar_list = []
+for i in range(1, len(data3)):
+    if data3.index[i][1] == 'astar':
+        astar_list.append(data3.index[i][0])
 
-bfs_df = data3[data3[' Algorithm'] == 'bfs']
 
-
-print(bfs_df)
+print(astar_list)
 
     
 
