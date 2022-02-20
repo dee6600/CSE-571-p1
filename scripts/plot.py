@@ -60,6 +60,23 @@ for i in range(len(data_t3)):
         custom_astar_list_t3.append((data_t3.iloc[i]['Dimension'], data_t3.iloc[i][' Nodes Expanded']))
 
 
+SORT_ORDER = {"4x4": 0, "3x6": 1, "8x8": 2, "12x12": 3, "16x16": 4}
+
+bfs_list_t2.sort(key=lambda val: SORT_ORDER[val[0]])
+ucs_list_t2.sort(key=lambda val: SORT_ORDER[val[0]])
+gbfs_list_t2.sort(key=lambda val: SORT_ORDER[val[0]])
+astar_list_t2.sort(key=lambda val: SORT_ORDER[val[0]])
+custom_astar_list_t2.sort(key=lambda val: SORT_ORDER[val[0]])
+
+bfs_list_t3.sort(key=lambda val: SORT_ORDER[val[0]])
+ucs_list_t3.sort(key=lambda val: SORT_ORDER[val[0]])
+gbfs_list_t3.sort(key=lambda val: SORT_ORDER[val[0]])
+astar_list_t3.sort(key=lambda val: SORT_ORDER[val[0]])
+custom_astar_list_t3.sort(key=lambda val: SORT_ORDER[val[0]])
+
+
+
+
 
 
 #plot two line plots

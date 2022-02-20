@@ -129,30 +129,6 @@ def manhattan_distance(x1, y1, x2, y2):
 
     return abs(x1 - x2) + abs(y1 - y2)
 
-def euclidian_distance(x1, y1, x2, y2):
-    """
-        Computes the Euclidian distance between two points.
-
-        Parameters
-        ===========
-            x1: int
-                The x-coordinate of the first point.
-            y1: int
-                The y-coordinate of the first point.
-            x2: int
-                The x-coordinate of the second point.
-            y2: int
-                The y-coordinate of the second point.
-
-        Returns
-        ========
-            int
-                The Euclidian distance between the two points.
-    """
-
-    return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
-
-
 def f_bfs(node, goal_state):
     """
         Evaluates the f() value for Best First Search.
@@ -273,7 +249,7 @@ def f_custom_astar(node, goal_state):
     x2, y2 = goal_state.x, goal_state.y
 
     # Compute the heuristic value with euclidian distance.
-    h = euclidian_distance(x1, y1, x2, y2)
+    h = math.sqrt(math.pow(x1 - x2, 2) + math.pow(y1 - y2, 2))
     g = compute_g("custom-astar", node, goal_state)
     f = g + h
 
@@ -342,81 +318,56 @@ def graph_search(algorithm, time_limit):
     5. f_custom_astar (If attempting bonus question)
     '''
 
+    # # bfs
+    # if algorithm == "bfs":
+    #     while not priority_queue.is_empty():
+    #         node = priority_queue.pop()
+    #         total_nodes_expanded += 1
+    #         if helper.is_goal_state(node.get_state()):
+    #             break
+    #         for action in helper.get_actions(node.get_state()):
+    #             child_state = helper.get_child_state(node.get_state(), action)
+    #             child_node = Node(child_state, node, node.get_action_cost() + 1, action, 0)
+    #             priority_queue.push(child_node.get_total_action_cost(), child_node)
+    #             action_list.append(action)
+    # # ucs
+    # if algorithm == "ucs":
+    #     while not priority_queue.is_empty():
+    #         node = priority_queue.pop()
+    #         total_nodes_expanded += 1
+    #         if helper.is_goal_state(node.get_state()):
+    #             break
+    #         for action in helper.get_actions(node.get_state()):
+    #             child_state = helper.get_child_state(node.get_state(), action)
+    #             child_node = Node(child_state, node, node.get_action_cost() + 1, action, 0)
+    #             priority_queue.push(child_node.get_total_action_cost(), child_node)
+    #             action_list.append(action)
+
 
     # general graph search algorithm
 
-    #empty visited list
-    visited_list = []
-
-    #main loop of the algorithm, this will run until the time limit is reached or the goal state is reached. 
-    # condition for exit is , if priority queue is empty. 
+    visited = []
     while not priority_queue.is_empty():
-
-        #pop the node with the lowest f_score from the priority queue and store it in node
         node = priority_queue.pop()
         
-        # check if the node is in visited list or not and also check if the node is valid or not.
-        # to conditions are ORed.
-        # node will be invalid if the sate of node's x and y is negative. We can impelent greater than also.
-        # any one condition is satisfied then the loop will continue.
-        if (node.get_state() in visited_list) or is_invalid(node.get_state()):
+        if (node.get_state() in visited) or is_invalid(node.get_state()):
             continue
-
-
-        # if the node is valid then add it to the visited list.
-        visited_list.append(node.get_state())
+        visited.append(node.get_state())
         
-
-        # check if the node is the goal state or not.
         if helper.is_goal_state(node.get_state()):
-
-            # running the while loop till the node is not the init/start node.
-            # this will be used to get the action list. Reverse order of the action list will be returned.
-            # bottom up traversal.
             while node.get_parent() is not None:
-
-                # add the action to the action list.
                 action_list.append(node.get_action())
-
-                # set the node to its parent/up node
                 node = node.get_parent()
-
-            # reverse the action list to get the correct order from init node to goal node.
             action_list.reverse()
-
-            # return the action list and the total number of nodes expanded.
-            ####final output###
             return action_list, total_nodes_expanded
-
-        # we have not found goal state yet.
-        # so we will expand the node and add its children to the priority queue.  
-        # get the childre/ possible actions of the unexpanded node.  
-        possible_actions = helper.get_successor(node.get_state())
-
-        # for each child/action of the node, create a new node and compute its f_score.
-        for action in possible_actions:
-
-            # get state and its action cost from possible actions.
-            new_state, action_cost = possible_actions[action]
-
-            # create a new node with the new state and parent node.
-            #passing new state, parent node,depth from init, action and action cost.
-            new_node = Node(new_state, node, node.get_depth() + 1, action, action_cost)
-
-            # compute the f_score of the new node.####
-            # f_score will be based on the algorithm used.
-            # we will use f_value for priorotising the nodes in the priority queue.
-            new_f_score = f_value[algorithm](new_node, goal_state)
-
-            # push the new node to the priority queue with its f_score.
-            priority_queue.push(new_f_score, new_node)
-
-        # increment the total number of nodes expanded. Every loop iteration exapnds a node.
-        # and we check for all the conditions and apply algorithms accordingly.  
+        successors = helper.get_successor(node.get_state())
+        for action in successors:
+           new_state, action_cost = successors[action]
+           new_node = Node(new_state, node, node.get_depth() + 1, action, action_cost)
+           new_f_score = f_value[algorithm](new_node, goal_state)
+           priority_queue.push(new_f_score, new_node)
         total_nodes_expanded += 1
 
-
-        # check if the time limit is reached or not.
         if time.time() >= time_limit:
             raise SearchTimeOutError("Search timed out after %u secs." % (time_limit))
 
