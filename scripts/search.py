@@ -13,6 +13,7 @@ __docformat__ = 'reStructuredText'
 from hashlib import new
 import math
 import os
+import numpy as np
 #import queue
 import time
 import rospy
@@ -29,6 +30,7 @@ from server import generate_maze
 from utils import initialize_ros
 from priority_queue import PriorityQueue
 from server import initialize_search_server
+
 
 
 SUBMIT_FILENAME = "hw1_results.csv"
@@ -292,32 +294,60 @@ def f_custom_astar(node, goal_state):
     # we cannot reduce the g value because the g value is the cost of the action, so i tried to increase the h value.
 
 
-    ### Working Experiemt 1 ###
+    ### Experiemt 1 ###
     ## double the heuristic value
     #f = g + h*2
+    # result NOTPASS
 
     ### Working Experiemt 2 ###
     ## square the heuristic value
     #f = g + h**2
+    # result NOTPASS
 
     # As I noticed the trend of the above experiemts, i decided to change the heuristic value based on depth of node. 
     # which resulted in follwoing experiemt which is the best one. This heuristic is admissible and is working better than 
     # regulr A* algorithm for every dimesion and every problem.
 
-    ### Working Experiemt 3 ###
+    # ### Working Experiemt 3 ###
 
+    # x1, y1 = node.get_state().x, node.get_state().y
+    # x2, y2 = goal_state.x, goal_state.y
+    # result NOTPASS
+
+    # # Compute the heuristic value with euclidian distance.
+    # h = euclidian_distance(x1, y1, x2, y2) ** node.get_depth()
+    # g = compute_g("custom-astar", node, goal_state) 
+    # f = g + h
+    # result NOTPASS - non admissible
+
+    # ### Working Experiemt 4 ###
+
+    # centroid 
+    # centroid_x = (x1+2*x2)/3
+    # centroid_y = (2*y1+y2)/3
+    #h = euclidian_distance(x1, y1, centroid_x, centroid_y) + manhattan_distance(x2, y2, centroid_x, centroid_y)
+    #h = math.atan2(y2-y1, x2-x1) * 180 / math.pi
+
+    #angle between the two points
+    #my_angle = math.atan2(y2-y1, x2-x1) * 180 / math.pi
+    # result NOTPASS
+
+    
+
+    
+
+  
+    ### Working Experiemt 5 ###
+    # decrease manhattan distance as we go deeper into the tree. This will ensure that we will always go to the goal node.
+    # as we move towards the goal h value will decrease. This heuristic is admissible and is working better than other algorithms.
+    # manhattan_distance is the most optimal heuristic for this problem and we are subtracting something from it, so it will be admissible always
     x1, y1 = node.get_state().x, node.get_state().y
     x2, y2 = goal_state.x, goal_state.y
 
-    # Compute the heuristic value with euclidian distance.
-    h = euclidian_distance(x1, y1, x2, y2) ** node.get_depth()
-    g = compute_g("custom-astar", node, goal_state) 
-
+    g = compute_g("custom-astar", node, goal_state)
+    h = manhattan_distance(x1, y1, x2, y2) - (node.get_depth())
+   
     f = g + h
-
-    
-    
-
 
     return f
 
