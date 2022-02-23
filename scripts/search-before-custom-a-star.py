@@ -130,9 +130,6 @@ def manhattan_distance(x1, y1, x2, y2):
 
     return abs(x1 - x2) + abs(y1 - y2)
 
-
-
-
 def euclidian_distance(x1, y1, x2, y2):
     """
         Computes the Euclidian distance between two points.
@@ -278,42 +275,15 @@ def f_custom_astar(node, goal_state):
 
     # Compute the heuristic value with euclidian distance.
     h = euclidian_distance(x1, y1, x2, y2)
-    g = compute_g("custom-astar", node, goal_state) 
+    g = compute_g("custom-astar", node, goal_state)
     
-
-    #####custom heuristic#####
-    ##### Experiments #####
-    #f = g + h
+    f = g + h
     #f = g * h
+
     # f = euclidian distnace from node to init + euclidian distnace from goal to node
     #f = euclidian_distance(x1, y1, 0, 0) + euclidian_distance(x1, y1, x2, y2)
-    #f = round(math.log2(g + h))
-    #f = node.get_action_cost() + h
 
-    # Thought process
-    # After analysing the gbfs and all the other algorithms, I found that the gbfs is the best one.
-    # The reaason behind this is that the gbfs is fully depended on the heuristic.
-    # So the idea of my experimentation is to increase the effect of the heuristic over g value.
-    # we cannot reduce the g value because the g value is the cost of the action, so i tried to increase the h value.
-
-
-    ### Working Experiemt 1 ###
-    ## double the heuristic value
-    #f = g + h*2
-
-    ### Working Experiemt 2 ###
-    ## square the heuristic value
-    #f = g + h**2
-
-    # As I noticed the trend of the above experiemts, i decided to change the heuristic value based on depth of node. 
-    # which resulted in follwoing experiemt which is the best one. This heuristic is admissible and is working better than 
-    # regulr A* algorithm
-
-    ### Working Experiemt 3 ###
-
-    f = g + (h)**node.get_depth()
-    
-    
+    #f = math.log2(g + h)
 
 
     return f

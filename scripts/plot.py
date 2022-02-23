@@ -5,6 +5,7 @@ import pandas as pd
 
 # Load data_t3
 data = pd.read_csv('hw1_results.csv')
+#data = pd.read_csv('/home/cse571/catkin_ws/src/hw1/hw1_testcases.csv')
 
 # only keep the data_t3[' Nodes Expanded'] column, data_t3['Dimension'] column, data_t3['Algorithm'] column
 
@@ -109,4 +110,4 @@ plt.title('Nodes Expanded vs Dimension')
 #show plots
 plt.show()
 
-#coment for git check
+
