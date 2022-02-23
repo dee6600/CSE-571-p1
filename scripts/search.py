@@ -273,12 +273,7 @@ def f_custom_astar(node, goal_state):
                 The f-value for the node.
     """
 
-    x1, y1 = node.get_state().x, node.get_state().y
-    x2, y2 = goal_state.x, goal_state.y
-
-    # Compute the heuristic value with euclidian distance.
-    h = euclidian_distance(x1, y1, x2, y2)
-    g = compute_g("custom-astar", node, goal_state) 
+    
     
 
     #####custom heuristic#####
@@ -307,11 +302,19 @@ def f_custom_astar(node, goal_state):
 
     # As I noticed the trend of the above experiemts, i decided to change the heuristic value based on depth of node. 
     # which resulted in follwoing experiemt which is the best one. This heuristic is admissible and is working better than 
-    # regulr A* algorithm
+    # regulr A* algorithm for every dimesion and every problem.
 
     ### Working Experiemt 3 ###
 
-    f = g + (h)**node.get_depth()
+    x1, y1 = node.get_state().x, node.get_state().y
+    x2, y2 = goal_state.x, goal_state.y
+
+    # Compute the heuristic value with euclidian distance.
+    h = euclidian_distance(x1, y1, x2, y2) ** node.get_depth()
+    g = compute_g("custom-astar", node, goal_state) 
+
+    f = g + h
+
     
     
 
